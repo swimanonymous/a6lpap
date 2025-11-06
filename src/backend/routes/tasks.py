@@ -1,8 +1,8 @@
 """Task CRUD endpoints."""
 from flask import Blueprint, request, jsonify
 from bson.errors import InvalidId
-from src.backend.models import Tasks
-from src.backend.utils import jsonify_task, oid, error_response
+from backend.models import Tasks
+from backend.utils import jsonify_task, oid, error_response
 
 
 tasks_bp = Blueprint('tasks', __name__, url_prefix='/api')

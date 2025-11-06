@@ -24,15 +24,16 @@ export interface UpdateTaskDto {
   status?: 'todo' | 'in_progress' | 'done';
 }
 
+// ✅ Fixed endpoints to match Flask blueprint prefix `/api/tasks`
 export const tasksApi = {
-  list: () => http.get<Task[]>('/tasks'),
+  list: () => http.get<Task[]>('/api/tasks'),
   
-  get: (id: string) => http.get<Task>(`/tasks/${id}`),
+  get: (id: string) => http.get<Task>(`/api/tasks/${id}`),
   
-  create: (data: CreateTaskDto) => http.post<Task>('/tasks', data),
+  create: (data: CreateTaskDto) => http.post<Task>('/api/tasks', data),
   
   update: (id: string, data: UpdateTaskDto) =>
-    http.patch<Task>(`/tasks/${id}`, data),
+    http.patch<Task>(`/api/tasks/${id}`, data),
   
-  delete: (id: string) => http.delete<void>(`/tasks/${id}`),
+  delete: (id: string) => http.delete<void>(`/api/tasks/${id}`),
 };

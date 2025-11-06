@@ -29,17 +29,18 @@ export interface UpdateCommentDto {
   author?: string;
 }
 
+// ✅ Updated endpoints to match Flask blueprint prefix `/api/...`
 export const commentsApi = {
   list: (taskId: string, limit = 20, offset = 0) =>
     http.get<CommentsResponse>(
-      `/tasks/${taskId}/comments?limit=${limit}&offset=${offset}`
+      `/api/tasks/${taskId}/comments?limit=${limit}&offset=${offset}`
     ),
   
   create: (taskId: string, data: CreateCommentDto) =>
-    http.post<Comment>(`/tasks/${taskId}/comments`, data),
+    http.post<Comment>(`/api/tasks/${taskId}/comments`, data),
   
   update: (id: string, data: UpdateCommentDto) =>
-    http.patch<Comment>(`/comments/${id}`, data),
+    http.patch<Comment>(`/api/comments/${id}`, data),
   
-  delete: (id: string) => http.delete<void>(`/comments/${id}`),
+  delete: (id: string) => http.delete<void>(`/api/comments/${id}`),
 };

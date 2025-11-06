@@ -58,3 +58,20 @@ serve:
 	CMD_ARGS=$$(echo "$$SERVE_SCRIPTS" | xargs -I {} echo npm run {}); \
 	echo "Running: $$CMD_ARGS"; \
 	echo "$$CMD_ARGS" | xargs -I {} -P 0 sh -c "{}"
+
+	# Assessment API targets
+.PHONY: api-dev
+api-dev:
+	export MONGO_URI="mongodb://localhost:27017" && \
+	export DB_NAME="better_software_dev" && \
+	pipenv run flask --app src/backend/app.py run --port 5000 --debug --reload
+
+.PHONY: test-assessment
+test-assessment:
+	export MONGO_URI="mongodb://localhost:27017" && \
+	export DB_NAME="better_software_test" && \
+	PYTHONPATH=. pipenv run pytest tests/backend/ -v
+
+.PHONY: web-dev
+web-dev:
+	npm run web:dev

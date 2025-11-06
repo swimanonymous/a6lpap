@@ -2,9 +2,8 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from src.backend.routes.comments import comments_bp
-from src.backend.routes.tasks import tasks_bp
-
+from backend.routes.comments import comments_bp
+from backend.routes.tasks import tasks_bp
 
 def create_app():
     """Create and configure Flask application."""
@@ -13,15 +12,15 @@ def create_app():
     # CORS configuration for React dev server
     CORS(app, resources={
         r"/api/*": {
-            "origins": ["http://localhost:3000", "http://127.0.0.1:3000"],
+            "origins": ["http://localhost:5173", "http://127.0.0.1:5173"],  # Vite default port
             "methods": ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type"]
         }
     })
     
-    # Register blueprints
-    app.register_blueprint(comments_bp)
-    app.register_blueprint(tasks_bp)
+    # Register blueprints with prefixes
+    app.register_blueprint(comments_bp, url_prefix='/api/comments')
+    app.register_blueprint(tasks_bp, url_prefix='/api/tasks')
     
     @app.route('/health')
     def health():
@@ -29,10 +28,8 @@ def create_app():
     
     return app
 
-
 # For flask run command
 app = create_app()
-
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

@@ -2,7 +2,8 @@
 from datetime import datetime
 from bson import ObjectId
 from pymongo.errors import DuplicateKeyError
-from src.backend.db import get_db
+from backend.db import get_db
+
 
 
 class Tasks:

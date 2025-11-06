@@ -1,7 +1,9 @@
 """Comment CRUD endpoints."""
 from flask import Blueprint, request, jsonify
-from src.backend.models import Tasks, Comments
-from src.backend.utils import (
+from backend.models import Tasks, Comments
+
+
+from backend.utils import (
     jsonify_comment, oid, parse_pagination, error_response
 )
 
